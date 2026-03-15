@@ -574,8 +574,9 @@ async function carregarProdutos() {
     const porCnpLote = {};
     dados.forEach(d => {
         if (nome && d.produto && !d.produto.toLowerCase().includes(nome)) return;
-        // Esconder CNPs inválidos (não numéricos com 7 dígitos)
+        // Esconder CNPs inválidos e sem produto
         if (!d.cnp || !/^\d{7}$/.test(d.cnp)) return;
+        if (!d.produto) return;
         const key = `${d.cnp}|${d.lote||''}`;
         if (!porCnpLote[key]) porCnpLote[key] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0, confs:new Set() };
         porCnpLote[key].count++;
@@ -618,6 +619,7 @@ async function carregarValidades() {
     const porCnpLote = {};
     dados.forEach(d => {
         if (!d.cnp || !/^\d{7}$/.test(d.cnp)) return;
+        if (!d.produto) return;
         const key = `${d.cnp}|${d.lote||''}`;
         if (!porCnpLote[key]) porCnpLote[key] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0 };
         porCnpLote[key].count++;

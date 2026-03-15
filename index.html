@@ -571,15 +571,19 @@ async function carregarProdutos() {
     if (cnp) q += `&cnp=eq.${cnp}`;
     if (lote) q += `&lote=ilike.*${lote}*`;
     const dados = await apiGet(q);
-    const porCnp = {};
+    const porCnpLote = {};
     dados.forEach(d => {
         if (nome && d.produto && !d.produto.toLowerCase().includes(nome)) return;
-        if (!porCnp[d.cnp]) porCnp[d.cnp] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0, confs:new Set() };
-        porCnp[d.cnp].count++;
-        porCnp[d.cnp].confs.add(d.conferencia);
+        const key = `${d.cnp}|${d.lote||''}`;
+        if (!porCnpLote[key]) porCnpLote[key] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0, confs:new Set() };
+        porCnpLote[key].count++;
+        porCnpLote[key].confs.add(d.conferencia);
     });
-    const lista = Object.values(porCnp).sort((a,b)=>b.count-a.count);
-    document.getElementById('cnt-prod').textContent = `${lista.length} produtos`;
+    const lista = Object.values(porCnpLote).sort((a,b) => {
+        if (a.cnp !== b.cnp) return a.cnp.localeCompare(b.cnp);
+        return (a.validade||'').localeCompare(b.validade||'');
+    });
+    document.getElementById('cnt-prod').textContent = `${lista.length} lotes`;
     const hoje = new Date();
     document.getElementById('tb-produtos').innerHTML = lista.length ? lista.map(r => {
         let valClass = '', valTxt = r.validade || '—';
@@ -609,13 +613,14 @@ async function carregarValidades() {
     if (dias === -1) q += `&validade=lte.${hoje.toISOString().split('T')[0]}`;
     else if (dias !== 9999) { const lim = new Date(); lim.setDate(hoje.getDate()+dias); q += `&validade=lte.${lim.toISOString().split('T')[0]}`; }
     const dados = await apiGet(q);
-    const porCnp = {};
+    const porCnpLote = {};
     dados.forEach(d => {
-        if (!porCnp[d.cnp]) porCnp[d.cnp] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0 };
-        porCnp[d.cnp].count++;
+        const key = `${d.cnp}|${d.lote||''}`;
+        if (!porCnpLote[key]) porCnpLote[key] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0 };
+        porCnpLote[key].count++;
     });
-    const lista = Object.values(porCnp).sort((a,b)=>new Date(a.validade)-new Date(b.validade));
-    document.getElementById('cnt-val').textContent = `${lista.length} produtos`;
+    const lista = Object.values(porCnpLote).sort((a,b)=>new Date(a.validade)-new Date(b.validade));
+    document.getElementById('cnt-val').textContent = `${lista.length} lotes`;
     document.getElementById('tb-validades').innerHTML = lista.length ? lista.map(r => {
         const v = new Date(r.validade), diasR = Math.round((v-hoje)/(1000*60*60*24));
         let badge;

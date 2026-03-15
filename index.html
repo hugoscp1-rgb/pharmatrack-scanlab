@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Receções</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #1a202c; }
+
+        /* LOGIN */
+        #login-screen {
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh; background: linear-gradient(135deg, #1565C0, #0A2463);
+        }
+        .login-box {
+            background: white; border-radius: 16px; padding: 48px;
+            width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .login-box h1 { font-size: 24px; color: #0A2463; margin-bottom: 8px; }
+        .login-box p { color: #718096; margin-bottom: 32px; font-size: 14px; }
+        .login-box input {
+            width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0;
+            border-radius: 8px; font-size: 14px; margin-bottom: 12px; outline: none;
+            transition: border-color 0.2s;
+        }
+        .login-box input:focus { border-color: #1565C0; }
+        .login-box button {
+            width: 100%; padding: 14px; background: #1565C0; color: white;
+            border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .login-box button:hover { background: #0A2463; }
+        .login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; display: none; }
+
+        /* DASHBOARD */
+        #dashboard { display: none; }
+        .header {
+            background: #0A2463; color: white; padding: 16px 32px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header h1 { font-size: 20px; }
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        .header button {
+            background: rgba(255,255,255,0.15); color: white; border: none;
+            padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px;
+        }
+        .header button:hover { background: rgba(255,255,255,0.25); }
+
+        .container { padding: 32px; max-width: 1400px; margin: 0 auto; }
+
+        /* CARDS */
+        .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+        .card {
+            background: white; border-radius: 16px; padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .card-label { font-size: 11px; color: #718096; text-transform: uppercase; letter-spacing: 1px; }
+        .card-value { font-size: 36px; font-weight: 700; color: #0A2463; margin: 8px 0 4px; }
+        .card-sub { font-size: 12px; color: #a0aec0; }
+        .card.blue { background: #1565C0; }
+        .card.blue .card-label { color: #90CAF9; }
+        .card.blue .card-value { color: white; }
+        .card.blue .card-sub { color: #90CAF9; }
+
+        /* CHARTS */
+        .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .chart-box {
+            background: white; border-radius: 16px; padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .chart-box h3 { font-size: 14px; font-weight: 600; color: #0A2463; margin-bottom: 20px; }
+        .chart-full { grid-column: 1 / -1; }
+
+        /* TABLE */
+        .table-box {
+            background: white; border-radius: 16px; padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px;
+        }
+        .table-box h3 { font-size: 14px; font-weight: 600; color: #0A2463; margin-bottom: 16px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 10px 12px; background: #f7fafc; color: #718096; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+        td { padding: 10px 12px; border-top: 1px solid #f0f4f8; }
+        tr:hover td { background: #f7fafc; }
+
+        /* VALIDADES */
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 20px;
+            font-size: 11px; font-weight: 600;
+        }
+        .badge.ok { background: #c6f6d5; color: #276749; }
+        .badge.aviso { background: #fefcbf; color: #744210; }
+        .badge.critico { background: #fed7d7; color: #9b2c2c; }
+        .badge.expirado { background: #e2e8f0; color: #4a5568; }
+
+        .loading { text-align: center; padding: 60px; color: #a0aec0; font-size: 14px; }
+
+        /* FILTROS */
+        .filtros { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+        .filtros select, .filtros input {
+            padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+            font-size: 13px; outline: none; background: white;
+        }
+        .filtros select:focus, .filtros input:focus { border-color: #1565C0; }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+    <div class="login-box">
+        <h1>📦 Dashboard Receções</h1>
+        <p>Acesso restrito — introduza as suas credenciais</p>
+        <input type="email" id="email" placeholder="Email" value="hugoscp1@gmail.com">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Entrar</button>
+        <div class="login-error" id="login-error">Email ou password incorrectos.</div>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+    <div class="header">
+        <h1>📦 Dashboard Receções</h1>
+        <div class="header-right">
+            <span id="user-email" style="font-size:13px;opacity:0.8"></span>
+            <button onclick="logout()">Sair</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filtros">
+            <select id="filtro-conf" onchange="recarregar()">
+                <option value="">Todas as conferências</option>
+                <option value="1">Conferência 1</option>
+                <option value="2">Conferência 2</option>
+            </select>
+            <select id="filtro-periodo" onchange="recarregar()">
+                <option value="365">Último ano</option>
+                <option value="90">Últimos 90 dias</option>
+                <option value="30">Últimos 30 dias</option>
+                <option value="7">Última semana</option>
+                <option value="0">Tudo</option>
+            </select>
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards">
+            <div class="card blue">
+                <div class="card-label">Total Scans</div>
+                <div class="card-value" id="total-scans">—</div>
+                <div class="card-sub">registos na BD</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Produtos Únicos</div>
+                <div class="card-value" id="total-produtos">—</div>
+                <div class="card-sub">CNPs distintos</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Conferências</div>
+                <div class="card-value" id="total-conf">—</div>
+                <div class="card-sub">no período</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Validades Curtas</div>
+                <div class="card-value" id="total-validades">—</div>
+                <div class="card-sub">produtos ≤ 180 dias</div>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS -->
+        <div class="charts-row">
+            <div class="chart-box">
+                <h3>📊 Scans por Conferência</h3>
+                <canvas id="chart-conf" height="200"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>🥇 Top 10 Produtos Mais Scaneados</h3>
+                <canvas id="chart-produtos" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-box chart-full">
+                <h3>📈 Evolução de Scans ao Longo do Tempo</h3>
+                <canvas id="chart-tempo" height="100"></canvas>
+            </div>
+        </div>
+
+        <!-- TABELA VALIDADES -->
+        <div class="table-box">
+            <h3>⚠️ Produtos com Validade Curta (≤ 180 dias)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CNP</th>
+                        <th>Produto</th>
+                        <th>Validade</th>
+                        <th>Dias Restantes</th>
+                        <th>Estado</th>
+                        <th>Scans</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-validades">
+                    <tr><td colspan="6" class="loading">A carregar...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TABELA TOP PRODUTOS -->
+        <div class="table-box">
+            <h3>📋 Todos os Produtos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CNP</th>
+                        <th>Produto</th>
+                        <th>Validade</th>
+                        <th>Scans</th>
+                        <th>Conferências</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-produtos">
+                    <tr><td colspan="5" class="loading">A carregar...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://peuvqplkjbfohcqjpdlk.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldXZxcGxramJmb2hjcWpwZGxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY2MDIsImV4cCI6MjA4OTA4MjYwMn0.mSi1iZMSg-e4t6GZMDqGnLYzPFpPzxE3DG9SVpdHM3o';
+
+let token = null;
+let charts = {};
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+
+async function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    document.getElementById('login-error').style.display = 'none';
+
+    try {
+        const resp = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'apikey': ANON_KEY },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await resp.json();
+        if (data.access_token) {
+            token = data.access_token;
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('user-email').textContent = email;
+            carregarDados();
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+        }
+    } catch(e) {
+        document.getElementById('login-error').style.display = 'block';
+    }
+}
+
+function logout() {
+    token = null;
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+}
+
+// ── API ───────────────────────────────────────────────────────────────────────
+
+async function api(endpoint) {
+    const resp = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
+        headers: { 'Authorization': `Bearer ${token}`, 'apikey': ANON_KEY }
+    });
+    return resp.json();
+}
+
+async function apiPaginated(endpoint) {
+    let all = [], offset = 0;
+    while (true) {
+        const batch = await api(`${endpoint}&limit=1000&offset=${offset}`);
+        if (!batch || batch.length === 0) break;
+        all = all.concat(batch);
+        offset += 1000;
+        if (batch.length < 1000) break;
+    }
+    return all;
+}
+
+// ── DADOS ─────────────────────────────────────────────────────────────────────
+
+function getFiltroData() {
+    const dias = parseInt(document.getElementById('filtro-periodo').value);
+    if (dias === 0) return '';
+    const d = new Date();
+    d.setDate(d.getDate() - dias);
+    return d.toISOString().split('T')[0];
+}
+
+function getFiltroConf() {
+    return document.getElementById('filtro-conf').value;
+}
+
+function recarregar() { carregarDados(); }
+
+async function carregarDados() {
+    const dataMin = getFiltroData();
+    const conf = getFiltroConf();
+
+    let filtros = 'scans?select=cnp,produto,validade,conferencia,data_conferencia';
+    if (dataMin) filtros += `&data_conferencia=gte.${dataMin}`;
+    if (conf) filtros += `&conferencia=eq.${conf}`;
+
+    const dados = await apiPaginated(filtros);
+
+    actualizarCards(dados);
+    actualizarGraficoCong(dados);
+    actualizarGraficoProdutos(dados);
+    actualizarGraficoTempo(dados);
+    actualizarTabelaValidades(dados);
+    actualizarTabelaProdutos(dados);
+}
+
+// ── CARDS ─────────────────────────────────────────────────────────────────────
+
+function actualizarCards(dados) {
+    document.getElementById('total-scans').textContent = dados.length.toLocaleString('pt');
+
+    const cnpsUnicos = new Set(dados.map(d => d.cnp)).size;
+    document.getElementById('total-produtos').textContent = cnpsUnicos.toLocaleString('pt');
+
+    const confs = new Set(dados.map(d => d.conferencia)).size;
+    document.getElementById('total-conf').textContent = confs;
+
+    const hoje = new Date();
+    const limite = new Date();
+    limite.setDate(hoje.getDate() + 180);
+    const valCurtas = new Set(dados.filter(d => {
+        if (!d.validade) return false;
+        const v = new Date(d.validade);
+        return v <= limite;
+    }).map(d => d.cnp)).size;
+    document.getElementById('total-validades').textContent = valCurtas;
+}
+
+// ── GRÁFICO CONFERÊNCIAS ──────────────────────────────────────────────────────
+
+function actualizarGraficoCong(dados) {
+    const contagem = {};
+    dados.forEach(d => {
+        const c = `Conf ${d.conferencia}`;
+        contagem[c] = (contagem[c] || 0) + 1;
+    });
+
+    const labels = Object.keys(contagem).sort();
+    const values = labels.map(l => contagem[l]);
+
+    if (charts.conf) charts.conf.destroy();
+    charts.conf = new Chart(document.getElementById('chart-conf'), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{ data: values, backgroundColor: '#1565C0', borderRadius: 6 }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+}
+
+// ── GRÁFICO TOP PRODUTOS ──────────────────────────────────────────────────────
+
+function actualizarGraficoProdutos(dados) {
+    const contagem = {};
+    dados.forEach(d => {
+        if (!d.produto) return;
+        const nome = d.produto.length > 30 ? d.produto.substring(0, 30) + '...' : d.produto;
+        contagem[nome] = (contagem[nome] || 0) + 1;
+    });
+
+    const sorted = Object.entries(contagem).sort((a,b) => b[1]-a[1]).slice(0, 10);
+    const labels = sorted.map(s => s[0]);
+    const values = sorted.map(s => s[1]);
+
+    if (charts.produtos) charts.produtos.destroy();
+    charts.produtos = new Chart(document.getElementById('chart-produtos'), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{ data: values, backgroundColor: '#42A5F5', borderRadius: 6 }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true } }
+        }
+    });
+}
+
+// ── GRÁFICO TEMPO ─────────────────────────────────────────────────────────────
+
+function actualizarGraficoTempo(dados) {
+    const contagem = {};
+    dados.forEach(d => {
+        if (!d.data_conferencia) return;
+        const mes = d.data_conferencia.substring(0, 7);
+        contagem[mes] = (contagem[mes] || 0) + 1;
+    });
+
+    const labels = Object.keys(contagem).sort();
+    const values = labels.map(l => contagem[l]);
+
+    if (charts.tempo) charts.tempo.destroy();
+    charts.tempo = new Chart(document.getElementById('chart-tempo'), {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                data: values,
+                borderColor: '#1565C0',
+                backgroundColor: 'rgba(21,101,192,0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+}
+
+// ── TABELA VALIDADES ──────────────────────────────────────────────────────────
+
+function actualizarTabelaValidades(dados) {
+    const hoje = new Date();
+    const limite = new Date();
+    limite.setDate(hoje.getDate() + 180);
+
+    // Agrupar por CNP
+    const porCnp = {};
+    dados.forEach(d => {
+        if (!d.validade) return;
+        const v = new Date(d.validade);
+        if (v > limite) return;
+        if (!porCnp[d.cnp]) {
+            porCnp[d.cnp] = { cnp: d.cnp, produto: d.produto, validade: d.validade, count: 0 };
+        }
+        porCnp[d.cnp].count++;
+    });
+
+    const lista = Object.values(porCnp).sort((a,b) => new Date(a.validade) - new Date(b.validade));
+
+    const tbody = document.getElementById('tabela-validades');
+    if (lista.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#a0aec0;padding:32px">Sem validades curtas no período</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = lista.map(r => {
+        const v = new Date(r.validade);
+        const dias = Math.round((v - hoje) / (1000*60*60*24));
+        let badge;
+        if (dias < 0) badge = '<span class="badge expirado">Expirado</span>';
+        else if (dias <= 30) badge = '<span class="badge critico">Crítico</span>';
+        else if (dias <= 90) badge = '<span class="badge aviso">Atenção</span>';
+        else badge = '<span class="badge ok">OK</span>';
+
+        return `<tr>
+            <td><b>${r.cnp}</b></td>
+            <td>${r.produto || '—'}</td>
+            <td>${r.validade}</td>
+            <td>${dias < 0 ? 'Expirado' : dias + ' dias'}</td>
+            <td>${badge}</td>
+            <td>${r.count.toLocaleString('pt')}</td>
+        </tr>`;
+    }).join('');
+}
+
+// ── TABELA PRODUTOS ───────────────────────────────────────────────────────────
+
+function actualizarTabelaProdutos(dados) {
+    const porCnp = {};
+    dados.forEach(d => {
+        if (!porCnp[d.cnp]) {
+            porCnp[d.cnp] = { cnp: d.cnp, produto: d.produto, validade: d.validade, count: 0, confs: new Set() };
+        }
+        porCnp[d.cnp].count++;
+        porCnp[d.cnp].confs.add(d.conferencia);
+    });
+
+    const lista = Object.values(porCnp).sort((a,b) => b.count - a.count);
+
+    const tbody = document.getElementById('tabela-produtos');
+    tbody.innerHTML = lista.map(r => `<tr>
+        <td><b>${r.cnp}</b></td>
+        <td>${r.produto || '<span style="color:#a0aec0">—</span>'}</td>
+        <td>${r.validade || '—'}</td>
+        <td>${r.count.toLocaleString('pt')}</td>
+        <td>${[...r.confs].sort().map(c => `Conf ${c}`).join(', ')}</td>
+    </tr>`).join('');
+}
+
+// Enter para login
+document.getElementById('password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>

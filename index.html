@@ -9,7 +9,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #1a202c; }
 
-        /* LOGIN */
         #login-screen {
             display: flex; align-items: center; justify-content: center;
             min-height: 100vh; background: linear-gradient(135deg, #1565C0, #0A2463);
@@ -24,18 +23,15 @@
         .login-box input {
             width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0;
             border-radius: 8px; font-size: 14px; margin-bottom: 12px; outline: none;
-            transition: border-color 0.2s;
         }
         .login-box input:focus { border-color: #1565C0; }
         .login-box button {
             width: 100%; padding: 14px; background: #1565C0; color: white;
-            border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
-            cursor: pointer; transition: background 0.2s;
+            border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;
         }
         .login-box button:hover { background: #0A2463; }
         .login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; display: none; }
 
-        /* DASHBOARD */
         #dashboard { display: none; }
         .header {
             background: #0A2463; color: white; padding: 14px 32px;
@@ -47,17 +43,14 @@
         .header h1 { font-size: 18px; font-weight: 700; }
         .header-sub { font-size: 11px; opacity: 0.6; margin-top: 1px; }
         .header-right { display: flex; align-items: center; gap: 16px; }
-        .header-right .user { font-size: 12px; opacity: 0.7; }
         .btn-logout {
             background: rgba(255,255,255,0.15); color: white; border: none;
             padding: 7px 14px; border-radius: 8px; cursor: pointer; font-size: 12px;
         }
-        .btn-logout:hover { background: rgba(255,255,255,0.25); }
 
-        /* NAV TABS */
         .nav-tabs {
             background: white; border-bottom: 1px solid #e2e8f0;
-            padding: 0 32px; display: flex; gap: 0;
+            padding: 0 32px; display: flex;
         }
         .nav-tab {
             padding: 14px 20px; font-size: 13px; font-weight: 500; color: #718096;
@@ -68,109 +61,114 @@
 
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .container { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
 
-        .container { padding: 28px 32px; max-width: 1400px; margin: 0 auto; }
-
-        /* CARDS */
-        .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-        .card {
-            background: white; border-radius: 14px; padding: 20px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
+        .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        .card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
         .card-label { font-size: 10px; color: #718096; text-transform: uppercase; letter-spacing: 1px; }
         .card-value { font-size: 32px; font-weight: 700; color: #0A2463; margin: 6px 0 2px; }
         .card-sub { font-size: 11px; color: #a0aec0; }
         .card.blue { background: linear-gradient(135deg, #1565C0, #0A2463); }
         .card.blue .card-label { color: #90CAF9; }
-        .card.blue .card-value { color: white; }
-        .card.blue .card-sub { color: #90CAF9; }
+        .card.blue .card-value, .card.blue .card-sub { color: white; }
 
-        /* FILTROS */
         .filtros {
             background: white; border-radius: 14px; padding: 16px 20px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px;
-            display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+            display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;
         }
-        .filtros label { font-size: 12px; color: #718096; font-weight: 600; }
-        .filtros select, .filtros input {
+        .filtro-group { display: flex; flex-direction: column; gap: 4px; }
+        .filtro-group label { font-size: 11px; color: #718096; font-weight: 600; text-transform: uppercase; }
+        .filtros select, .filtros input[type=text], .filtros input[type=date] {
             padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px;
-            font-size: 13px; outline: none; background: white; min-width: 140px;
+            font-size: 13px; outline: none; background: white;
         }
         .filtros select:focus, .filtros input:focus { border-color: #1565C0; }
         .btn-filtrar {
             padding: 8px 20px; background: #1565C0; color: white; border: none;
-            border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+            border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; height: 36px;
         }
-        .btn-filtrar:hover { background: #0A2463; }
         .btn-limpar {
             padding: 8px 16px; background: #f7fafc; color: #718096; border: 1px solid #e2e8f0;
-            border-radius: 8px; font-size: 13px; cursor: pointer;
+            border-radius: 8px; font-size: 13px; cursor: pointer; height: 36px;
         }
 
-        /* CHARTS */
         .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-        .chart-box {
-            background: white; border-radius: 14px; padding: 20px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
+        .chart-box { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
         .chart-box h3 { font-size: 13px; font-weight: 600; color: #0A2463; margin-bottom: 16px; }
         .chart-full { grid-column: 1 / -1; }
 
-        /* TABLES */
-        .table-box {
-            background: white; border-radius: 14px; padding: 20px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 16px;
-        }
+        .table-box { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 16px; }
         .table-box-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
         .table-box h3 { font-size: 13px; font-weight: 600; color: #0A2463; }
         .table-count { font-size: 12px; color: #a0aec0; }
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { text-align: left; padding: 9px 12px; background: #f7fafc; color: #718096; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-        td { padding: 9px 12px; border-top: 1px solid #f0f4f8; }
+        th { text-align: left; padding: 9px 12px; background: #f7fafc; color: #718096; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+        td { padding: 9px 12px; border-top: 1px solid #f0f4f8; vertical-align: middle; }
         tr:hover td { background: #fafbfc; }
 
-        /* BADGES */
-        .badge {
-            display: inline-block; padding: 3px 9px; border-radius: 20px;
-            font-size: 11px; font-weight: 600;
-        }
+        .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; }
         .badge.ok { background: #c6f6d5; color: #276749; }
         .badge.aviso { background: #fefcbf; color: #744210; }
         .badge.critico { background: #fed7d7; color: #9b2c2c; }
         .badge.expirado { background: #e2e8f0; color: #4a5568; }
+        .badge.get { background: #c6f6d5; color: #276749; }
+        .badge.post { background: #bee3f8; color: #2b6cb0; }
 
-        /* SEMAFOROS */
-        .semaforos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
-        .semaforo-card {
+        /* WEBSERVICES */
+        .ws-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+        .ws-card {
             background: white; border-radius: 14px; padding: 20px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             display: flex; align-items: center; gap: 16px;
         }
-        .semaforo-dot {
-            width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
-            box-shadow: 0 0 8px currentColor;
+        .ws-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+        .ws-dot.verde { background: #48bb78; box-shadow: 0 0 8px #48bb78; }
+        .ws-dot.vermelho { background: #fc8181; box-shadow: 0 0 8px #fc8181; }
+        .ws-dot.cinza { background: #a0aec0; }
+        .ws-dot.amarelo { background: #f6e05e; box-shadow: 0 0 8px #f6e05e; }
+        .ws-info h4 { font-size: 13px; font-weight: 600; color: #0A2463; }
+        .ws-info p { font-size: 11px; color: #718096; margin-top: 2px; }
+        .ws-status { font-size: 11px; font-weight: 600; margin-top: 4px; }
+        .ws-status.ok { color: #276749; }
+        .ws-status.erro { color: #9b2c2c; }
+        .ws-status.aviso { color: #744210; }
+
+        /* RECEÇÕES */
+        .rec-row {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; border-radius: 10px; margin-bottom: 8px;
+            background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-left: 4px solid #48bb78;
         }
-        .semaforo-dot.verde { background: #48bb78; color: #48bb78; }
-        .semaforo-dot.vermelho { background: #fc8181; color: #fc8181; }
-        .semaforo-dot.cinza { background: #a0aec0; color: #a0aec0; }
-        .semaforo-info h4 { font-size: 13px; font-weight: 600; color: #0A2463; }
-        .semaforo-info p { font-size: 11px; color: #718096; margin-top: 2px; }
-        .semaforo-status { font-size: 11px; font-weight: 600; margin-top: 4px; }
-        .semaforo-status.ok { color: #276749; }
-        .semaforo-status.erro { color: #9b2c2c; }
-        .semaforo-status.verificando { color: #744210; }
+        .rec-row.erro { border-left-color: #fc8181; }
+        .rec-row.aviso { border-left-color: #f6e05e; }
+        .rec-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .rec-dot.verde { background: #48bb78; }
+        .rec-dot.vermelho { background: #fc8181; }
+        .rec-codigo { font-weight: 700; font-size: 13px; color: #0A2463; min-width: 140px; }
+        .rec-data { font-size: 12px; color: #718096; min-width: 130px; }
+        .rec-tipo { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: #bee3f8; color: #2b6cb0; font-weight: 600; }
+        .rec-valor { font-size: 13px; color: #1a202c; min-width: 80px; }
+        .rec-empresa { font-size: 12px; color: #4a5568; flex: 1; }
+        .rec-btn {
+            padding: 5px 12px; background: #1565C0; color: white; border: none;
+            border-radius: 6px; font-size: 11px; cursor: pointer; white-space: nowrap;
+        }
+        .rec-btn.reprocessar { background: #e53e3e; }
+
         .btn-verificar {
-            margin-top: 16px; padding: 8px 20px; background: #1565C0; color: white;
-            border: none; border-radius: 8px; font-size: 13px; cursor: pointer;
+            padding: 8px 20px; background: #1565C0; color: white; border: none;
+            border-radius: 8px; font-size: 13px; cursor: pointer; margin-bottom: 20px;
         }
 
         .loading { text-align: center; padding: 40px; color: #a0aec0; font-size: 13px; }
         .empty { text-align: center; padding: 40px; color: #a0aec0; font-size: 13px; }
+        code { font-size: 11px; background: #f7fafc; padding: 2px 6px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
     <div class="login-box">
         <div class="login-logo">💊</div>
@@ -183,7 +181,6 @@
     </div>
 </div>
 
-<!-- DASHBOARD -->
 <div id="dashboard">
     <div class="header">
         <div class="header-left">
@@ -194,248 +191,237 @@
             </div>
         </div>
         <div class="header-right">
-            <span class="user" id="user-email"></span>
+            <span style="font-size:12px;opacity:0.7" id="user-email"></span>
             <button class="btn-logout" onclick="logout()">Sair</button>
         </div>
     </div>
 
-    <!-- NAV TABS -->
     <div class="nav-tabs">
-        <div class="nav-tab active" onclick="mudarTab('overview')">📊 Overview</div>
-        <div class="nav-tab" onclick="mudarTab('produtos')">📋 Produtos</div>
-        <div class="nav-tab" onclick="mudarTab('validades')">⚠️ Validades</div>
-        <div class="nav-tab" onclick="mudarTab('webservices')">🔌 Webservices</div>
+        <div class="nav-tab active" onclick="mudarTab('overview',this)">📊 Overview</div>
+        <div class="nav-tab" onclick="mudarTab('produtos',this)">📋 Produtos</div>
+        <div class="nav-tab" onclick="mudarTab('validades',this)">⚠️ Validades</div>
+        <div class="nav-tab" onclick="mudarTab('webservices',this)">🔌 Webservices</div>
     </div>
 
-    <!-- TAB OVERVIEW -->
+    <!-- OVERVIEW -->
     <div id="tab-overview" class="tab-content active">
         <div class="container">
-            <!-- FILTROS -->
             <div class="filtros">
-                <label>Conferência</label>
-                <select id="filtro-conf">
-                    <option value="">Todas</option>
-                    <option value="1">Conferência 1</option>
-                    <option value="2">Conferência 2</option>
-                </select>
-                <label>Ano</label>
-                <select id="filtro-ano">
-                    <option value="">Todos</option>
-                </select>
-                <label>Mês</label>
-                <select id="filtro-mes">
-                    <option value="">Todos</option>
-                    <option value="01">Janeiro</option>
-                    <option value="02">Fevereiro</option>
-                    <option value="03">Março</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Maio</option>
-                    <option value="06">Junho</option>
-                    <option value="07">Julho</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Setembro</option>
-                    <option value="10">Outubro</option>
-                    <option value="11">Novembro</option>
-                    <option value="12">Dezembro</option>
-                </select>
-                <label>CNP</label>
-                <input type="text" id="filtro-cnp" placeholder="ex: 8644815" maxlength="7">
+                <div class="filtro-group">
+                    <label>Conferência</label>
+                    <select id="f-conf">
+                        <option value="">Todas</option>
+                        <option value="1">Conferência 1</option>
+                        <option value="2">Conferência 2</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>Data início</label>
+                    <input type="date" id="f-data-ini">
+                </div>
+                <div class="filtro-group">
+                    <label>Data fim</label>
+                    <input type="date" id="f-data-fim">
+                </div>
+                <div class="filtro-group">
+                    <label>Ano</label>
+                    <select id="f-ano"><option value="">Todos</option></select>
+                </div>
+                <div class="filtro-group">
+                    <label>Mês</label>
+                    <select id="f-mes">
+                        <option value="">Todos</option>
+                        <option value="01">Janeiro</option><option value="02">Fevereiro</option>
+                        <option value="03">Março</option><option value="04">Abril</option>
+                        <option value="05">Maio</option><option value="06">Junho</option>
+                        <option value="07">Julho</option><option value="08">Agosto</option>
+                        <option value="09">Setembro</option><option value="10">Outubro</option>
+                        <option value="11">Novembro</option><option value="12">Dezembro</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>CNP</label>
+                    <input type="text" id="f-cnp" placeholder="ex: 8644815" maxlength="7" style="width:110px">
+                </div>
                 <button class="btn-filtrar" onclick="carregarDados()">Filtrar</button>
                 <button class="btn-limpar" onclick="limparFiltros()">Limpar</button>
             </div>
 
-            <!-- CARDS -->
             <div class="cards">
                 <div class="card blue">
                     <div class="card-label">Total Scans</div>
-                    <div class="card-value" id="total-scans">—</div>
+                    <div class="card-value" id="c-scans">—</div>
                     <div class="card-sub">registos no período</div>
                 </div>
                 <div class="card">
                     <div class="card-label">Produtos Únicos</div>
-                    <div class="card-value" id="total-produtos">—</div>
+                    <div class="card-value" id="c-produtos">—</div>
                     <div class="card-sub">CNPs distintos</div>
                 </div>
                 <div class="card">
                     <div class="card-label">Conferências</div>
-                    <div class="card-value" id="total-conf">—</div>
+                    <div class="card-value" id="c-conf">—</div>
                     <div class="card-sub">no período</div>
                 </div>
                 <div class="card">
                     <div class="card-label">Validades ≤ 180 dias</div>
-                    <div class="card-value" id="total-validades">—</div>
+                    <div class="card-value" id="c-val">—</div>
                     <div class="card-sub">produtos a vigiar</div>
                 </div>
             </div>
 
-            <!-- GRÁFICOS -->
             <div class="charts-row">
                 <div class="chart-box">
                     <h3>📊 Scans por Conferência</h3>
                     <canvas id="chart-conf" height="220"></canvas>
                 </div>
                 <div class="chart-box">
-                    <h3>🥇 Top 10 Produtos Mais Scaneados</h3>
-                    <canvas id="chart-produtos" height="220"></canvas>
+                    <h3>🥇 Top 10 Produtos</h3>
+                    <canvas id="chart-top" height="220"></canvas>
                 </div>
             </div>
             <div class="charts-row">
                 <div class="chart-box chart-full">
-                    <h3>📈 Evolução Mensal de Scans</h3>
+                    <h3>📈 Evolução Mensal</h3>
                     <canvas id="chart-tempo" height="90"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- TAB PRODUTOS -->
+    <!-- PRODUTOS -->
     <div id="tab-produtos" class="tab-content">
         <div class="container">
             <div class="filtros">
-                <label>Conferência</label>
-                <select id="filtro-conf-prod">
-                    <option value="">Todas</option>
-                    <option value="1">Conferência 1</option>
-                    <option value="2">Conferência 2</option>
-                </select>
-                <label>CNP</label>
-                <input type="text" id="filtro-cnp-prod" placeholder="ex: 8644815" maxlength="7">
-                <label>Produto</label>
-                <input type="text" id="filtro-nome-prod" placeholder="ex: ben-u-ron">
+                <div class="filtro-group">
+                    <label>Conferência</label>
+                    <select id="pf-conf">
+                        <option value="">Todas</option>
+                        <option value="1">Conferência 1</option>
+                        <option value="2">Conferência 2</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>CNP</label>
+                    <input type="text" id="pf-cnp" placeholder="ex: 8644815" maxlength="7" style="width:110px">
+                </div>
+                <div class="filtro-group">
+                    <label>Nome do Produto</label>
+                    <input type="text" id="pf-nome" placeholder="ex: ben-u-ron" style="width:180px">
+                </div>
+                <div class="filtro-group">
+                    <label>Lote</label>
+                    <input type="text" id="pf-lote" placeholder="ex: HP2C" style="width:120px">
+                </div>
                 <button class="btn-filtrar" onclick="carregarProdutos()">Filtrar</button>
                 <button class="btn-limpar" onclick="limparFiltrosProd()">Limpar</button>
             </div>
             <div class="table-box">
                 <div class="table-box-header">
-                    <h3>📋 Todos os Produtos</h3>
-                    <span class="table-count" id="count-produtos"></span>
+                    <h3>📋 Produtos</h3>
+                    <span class="table-count" id="cnt-prod"></span>
                 </div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>CNP</th>
-                            <th>Produto</th>
-                            <th>Validade</th>
-                            <th>Scans</th>
-                            <th>Conferências</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabela-produtos">
-                        <tr><td colspan="5" class="loading">A carregar...</td></tr>
-                    </tbody>
+                    <thead><tr>
+                        <th>CNP</th><th>Produto</th><th>Lote</th><th>Validade</th><th>Scans</th><th>Conferências</th>
+                    </tr></thead>
+                    <tbody id="tb-produtos"><tr><td colspan="6" class="loading">A carregar...</td></tr></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- TAB VALIDADES -->
+    <!-- VALIDADES -->
     <div id="tab-validades" class="tab-content">
         <div class="container">
             <div class="filtros">
-                <label>Dias até expirar</label>
-                <select id="filtro-dias-val">
-                    <option value="180">≤ 180 dias</option>
-                    <option value="90">≤ 90 dias</option>
-                    <option value="30">≤ 30 dias</option>
-                    <option value="0">Expirados</option>
-                    <option value="365">≤ 1 ano</option>
-                </select>
+                <div class="filtro-group">
+                    <label>Estado</label>
+                    <select id="vf-dias">
+                        <option value="180">≤ 180 dias</option>
+                        <option value="90">≤ 90 dias</option>
+                        <option value="30">≤ 30 dias</option>
+                        <option value="-1">Expirados</option>
+                        <option value="365">≤ 1 ano</option>
+                        <option value="9999">Todos</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>CNP</label>
+                    <input type="text" id="vf-cnp" placeholder="ex: 8644815" maxlength="7" style="width:110px">
+                </div>
                 <button class="btn-filtrar" onclick="carregarValidades()">Filtrar</button>
             </div>
             <div class="table-box">
                 <div class="table-box-header">
-                    <h3>⚠️ Produtos por Validade</h3>
-                    <span class="table-count" id="count-validades"></span>
+                    <h3>⚠️ Validades</h3>
+                    <span class="table-count" id="cnt-val"></span>
                 </div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>CNP</th>
-                            <th>Produto</th>
-                            <th>Validade</th>
-                            <th>Dias Restantes</th>
-                            <th>Estado</th>
-                            <th>Scans</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabela-validades">
-                        <tr><td colspan="6" class="loading">A carregar...</td></tr>
-                    </tbody>
+                    <thead><tr>
+                        <th>CNP</th><th>Produto</th><th>Lote</th><th>Validade</th><th>Dias</th><th>Estado</th><th>Scans</th>
+                    </tr></thead>
+                    <tbody id="tb-validades"><tr><td colspan="7" class="loading">A carregar...</td></tr></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- TAB WEBSERVICES -->
+    <!-- WEBSERVICES -->
     <div id="tab-webservices" class="tab-content">
         <div class="container">
-            <div class="semaforos-grid">
-                <div class="semaforo-card">
-                    <div class="semaforo-dot cinza" id="dot-supabase"></div>
-                    <div class="semaforo-info">
+            <button class="btn-verificar" onclick="verificarWS()">🔄 Verificar Agora</button>
+
+            <div class="ws-grid">
+                <div class="ws-card">
+                    <div class="ws-dot cinza" id="dot-api"></div>
+                    <div class="ws-info">
                         <h4>Supabase API</h4>
                         <p>Base de dados principal</p>
-                        <div class="semaforo-status verificando" id="status-supabase">A verificar...</div>
+                        <div class="ws-status aviso" id="st-api">A verificar...</div>
                     </div>
                 </div>
-                <div class="semaforo-card">
-                    <div class="semaforo-dot cinza" id="dot-auth"></div>
-                    <div class="semaforo-info">
+                <div class="ws-card">
+                    <div class="ws-dot cinza" id="dot-auth"></div>
+                    <div class="ws-info">
                         <h4>Supabase Auth</h4>
                         <p>Autenticação de utilizadores</p>
-                        <div class="semaforo-status verificando" id="status-auth">A verificar...</div>
+                        <div class="ws-status aviso" id="st-auth">A verificar...</div>
                     </div>
                 </div>
-                <div class="semaforo-card">
-                    <div class="semaforo-dot cinza" id="dot-logisticswms"></div>
-                    <div class="semaforo-info">
-                        <h4>LogisticsWMS API</h4>
+                <div class="ws-card">
+                    <div class="ws-dot cinza" id="dot-wms"></div>
+                    <div class="ws-info">
+                        <h4>LogisticsWMS</h4>
                         <p>Sistema de gestão de armazém</p>
-                        <div class="semaforo-status verificando" id="status-logisticswms">A verificar...</div>
+                        <div class="ws-status aviso" id="st-wms">Acesso via app / VPN</div>
                     </div>
                 </div>
             </div>
 
+            <!-- RECEÇÕES -->
             <div class="table-box">
-                <h3>🔌 Endpoints Disponíveis</h3>
+                <div class="table-box-header">
+                    <h3>📥 Últimas Receções Processadas</h3>
+                    <span class="table-count" id="cnt-rec"></span>
+                </div>
+                <div id="lista-recepoes"><div class="loading">A carregar...</div></div>
+            </div>
+
+            <!-- ENDPOINTS -->
+            <div class="table-box">
+                <h3 style="margin-bottom:16px">🔌 Endpoints REST Disponíveis</h3>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Método</th>
-                            <th>Endpoint</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Método</th><th>Endpoint</th><th>Descrição</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td><span class="badge ok">GET</span></td>
-                            <td><code>https://peuvqplkjbfohcqjpdlk.supabase.co/rest/v1/scans</code></td>
-                            <td>Listar todos os scans</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge ok">GET</span></td>
-                            <td><code>.../scans?conferencia=eq.1</code></td>
-                            <td>Filtrar por conferência</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge ok">GET</span></td>
-                            <td><code>.../scans?cnp=eq.8644815</code></td>
-                            <td>Filtrar por CNP</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge ok">GET</span></td>
-                            <td><code>.../scans?validade=lte.2025-12-31</code></td>
-                            <td>Filtrar por validade</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge aviso">POST</span></td>
-                            <td><code>.../scans</code></td>
-                            <td>Inserir novo scan</td>
-                        </tr>
+                        <tr><td><span class="badge get">GET</span></td><td><code>/rest/v1/scans</code></td><td>Todos os scans</td></tr>
+                        <tr><td><span class="badge get">GET</span></td><td><code>/rest/v1/scans?conferencia=eq.1</code></td><td>Por conferência</td></tr>
+                        <tr><td><span class="badge get">GET</span></td><td><code>/rest/v1/scans?cnp=eq.8644815</code></td><td>Por CNP</td></tr>
+                        <tr><td><span class="badge get">GET</span></td><td><code>/rest/v1/scans?validade=lte.2025-12-31</code></td><td>Por validade</td></tr>
+                        <tr><td><span class="badge post">POST</span></td><td><code>/rest/v1/scans</code></td><td>Inserir scan</td></tr>
                     </tbody>
                 </table>
             </div>
-            <button class="btn-verificar" onclick="verificarWebservices()">🔄 Verificar Agora</button>
         </div>
     </div>
 </div>
@@ -443,33 +429,26 @@
 <script>
 const SUPABASE_URL = 'https://peuvqplkjbfohcqjpdlk.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldXZxcGxramJmb2hjcWpwZGxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY2MDIsImV4cCI6MjA4OTA4MjYwMn0.mSi1iZMSg-e4t6GZMDqGnLYzPFpPzxE3DG9SVpdHM3o';
+let token = null, charts = {};
 
-let token = null;
-let charts = {};
-let todosOsDados = [];
-
-// ── AUTH ──────────────────────────────────────────────────────────────────────
 async function login() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     document.getElementById('login-error').style.display = 'none';
     try {
-        const resp = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'apikey': ANON_KEY },
+        const r = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': ANON_KEY },
             body: JSON.stringify({ email, password })
         });
-        const data = await resp.json();
-        if (data.access_token) {
-            token = data.access_token;
+        const d = await r.json();
+        if (d.access_token) {
+            token = d.access_token;
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('user-email').textContent = email;
             preencherAnos();
             carregarDados();
-        } else {
-            document.getElementById('login-error').style.display = 'block';
-        }
+        } else { document.getElementById('login-error').style.display = 'block'; }
     } catch(e) { document.getElementById('login-error').style.display = 'block'; }
 }
 
@@ -479,170 +458,165 @@ function logout() {
     document.getElementById('dashboard').style.display = 'none';
 }
 
-// ── TABS ──────────────────────────────────────────────────────────────────────
-function mudarTab(tab) {
+function mudarTab(tab, el) {
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
+    el.classList.add('active');
     document.getElementById('tab-' + tab).classList.add('active');
     if (tab === 'produtos') carregarProdutos();
     if (tab === 'validades') carregarValidades();
-    if (tab === 'webservices') verificarWebservices();
+    if (tab === 'webservices') { verificarWS(); carregarRecepoes(); }
 }
 
-// ── API ───────────────────────────────────────────────────────────────────────
-async function apiPaginated(endpoint) {
+async function apiGet(endpoint) {
     let all = [], offset = 0;
     while (true) {
-        const resp = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}&limit=1000&offset=${offset}`, {
+        const r = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}&limit=1000&offset=${offset}`, {
             headers: { 'Authorization': `Bearer ${token}`, 'apikey': ANON_KEY }
         });
-        const batch = await resp.json();
-        if (!batch || !batch.length) break;
-        all = all.concat(batch);
+        const b = await r.json();
+        if (!b || !b.length) break;
+        all = all.concat(b);
         offset += 1000;
-        if (batch.length < 1000) break;
+        if (b.length < 1000) break;
     }
     return all;
 }
 
-// ── ANOS ──────────────────────────────────────────────────────────────────────
 async function preencherAnos() {
-    const dados = await apiPaginated('scans?select=data_conferencia&order=data_conferencia.asc');
-    const anos = [...new Set(dados.filter(d => d.data_conferencia).map(d => d.data_conferencia.substring(0,4)))];
-    const sel = document.getElementById('filtro-ano');
+    const d = await apiGet('scans?select=data_conferencia&order=data_conferencia.asc');
+    const anos = [...new Set(d.filter(x => x.data_conferencia).map(x => x.data_conferencia.substring(0,4)))];
+    const sel = document.getElementById('f-ano');
     anos.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; sel.appendChild(o); });
 }
 
-// ── FILTROS ───────────────────────────────────────────────────────────────────
-function buildFiltros() {
-    const conf = document.getElementById('filtro-conf').value;
-    const ano = document.getElementById('filtro-ano').value;
-    const mes = document.getElementById('filtro-mes').value;
-    const cnp = document.getElementById('filtro-cnp').value.trim();
-    let f = 'scans?select=cnp,produto,validade,conferencia,data_conferencia&order=data_conferencia.asc';
-    if (conf) f += `&conferencia=eq.${conf}`;
-    if (cnp) f += `&cnp=eq.${cnp}`;
-    if (ano && mes) f += `&data_conferencia=gte.${ano}-${mes}-01&data_conferencia=lte.${ano}-${mes}-31`;
-    else if (ano) f += `&data_conferencia=gte.${ano}-01-01&data_conferencia=lte.${ano}-12-31`;
-    return f;
+function buildQ() {
+    const conf = document.getElementById('f-conf').value;
+    const ini = document.getElementById('f-data-ini').value;
+    const fim = document.getElementById('f-data-fim').value;
+    const ano = document.getElementById('f-ano').value;
+    const mes = document.getElementById('f-mes').value;
+    const cnp = document.getElementById('f-cnp').value.trim();
+    let q = 'scans?select=cnp,produto,lote,validade,conferencia,data_conferencia&order=data_conferencia.asc';
+    if (conf) q += `&conferencia=eq.${conf}`;
+    if (cnp) q += `&cnp=eq.${cnp}`;
+    if (ini) q += `&data_conferencia=gte.${ini}`;
+    if (fim) q += `&data_conferencia=lte.${fim}`;
+    else if (ano && mes) { q += `&data_conferencia=gte.${ano}-${mes}-01&data_conferencia=lte.${ano}-${mes}-31`; }
+    else if (ano) { q += `&data_conferencia=gte.${ano}-01-01&data_conferencia=lte.${ano}-12-31`; }
+    return q;
 }
 
 function limparFiltros() {
-    document.getElementById('filtro-conf').value = '';
-    document.getElementById('filtro-ano').value = '';
-    document.getElementById('filtro-mes').value = '';
-    document.getElementById('filtro-cnp').value = '';
+    ['f-conf','f-ano','f-mes'].forEach(id => document.getElementById(id).value = '');
+    ['f-data-ini','f-data-fim','f-cnp'].forEach(id => document.getElementById(id).value = '');
     carregarDados();
 }
 
+async function carregarDados() {
+    const dados = await apiGet(buildQ());
+    // Cards
+    document.getElementById('c-scans').textContent = dados.length.toLocaleString('pt');
+    document.getElementById('c-produtos').textContent = new Set(dados.map(d=>d.cnp)).size.toLocaleString('pt');
+    document.getElementById('c-conf').textContent = new Set(dados.map(d=>d.conferencia)).size;
+    const hoje = new Date(), lim = new Date(); lim.setDate(hoje.getDate()+180);
+    document.getElementById('c-val').textContent = new Set(dados.filter(d=>d.validade&&new Date(d.validade)<=lim).map(d=>d.cnp)).size;
+    // Charts
+    graficoConf(dados); graficoTop(dados); graficoTempo(dados);
+}
+
+function graficoConf(dados) {
+    const c = {}; dados.forEach(d => { const k=`Conf ${d.conferencia}`; c[k]=(c[k]||0)+1; });
+    const labels = Object.keys(c).sort(), vals = labels.map(l=>c[l]);
+    if (charts.conf) charts.conf.destroy();
+    charts.conf = new Chart(document.getElementById('chart-conf'), {
+        type:'bar', data:{ labels, datasets:[{ data:vals, backgroundColor:'#1565C0', borderRadius:6 }] },
+        options:{ plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+    });
+}
+
+function graficoTop(dados) {
+    const c = {}; dados.forEach(d => { if(!d.produto) return; const n=d.produto.length>35?d.produto.substring(0,35)+'…':d.produto; c[n]=(c[n]||0)+1; });
+    const s = Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    if (charts.top) charts.top.destroy();
+    charts.top = new Chart(document.getElementById('chart-top'), {
+        type:'bar', data:{ labels:s.map(x=>x[0]), datasets:[{ data:s.map(x=>x[1]), backgroundColor:'#42A5F5', borderRadius:6 }] },
+        options:{ indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} }
+    });
+}
+
+function graficoTempo(dados) {
+    const c = {}; dados.forEach(d => { if(!d.data_conferencia) return; const m=d.data_conferencia.substring(0,7); c[m]=(c[m]||0)+1; });
+    const labels = Object.keys(c).sort(), vals = labels.map(l=>c[l]);
+    if (charts.tempo) charts.tempo.destroy();
+    charts.tempo = new Chart(document.getElementById('chart-tempo'), {
+        type:'line', data:{ labels, datasets:[{ data:vals, borderColor:'#1565C0', backgroundColor:'rgba(21,101,192,0.08)', fill:true, tension:0.4, pointRadius:3 }] },
+        options:{ plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+    });
+}
+
 function limparFiltrosProd() {
-    document.getElementById('filtro-conf-prod').value = '';
-    document.getElementById('filtro-cnp-prod').value = '';
-    document.getElementById('filtro-nome-prod').value = '';
+    ['pf-conf','pf-cnp','pf-nome','pf-lote'].forEach(id => document.getElementById(id).value = '');
     carregarProdutos();
 }
 
-// ── OVERVIEW ──────────────────────────────────────────────────────────────────
-async function carregarDados() {
-    const dados = await apiPaginated(buildFiltros());
-    todosOsDados = dados;
-    actualizarCards(dados);
-    actualizarGraficoConf(dados);
-    actualizarGraficoProdutos(dados);
-    actualizarGraficoTempo(dados);
-}
-
-function actualizarCards(dados) {
-    document.getElementById('total-scans').textContent = dados.length.toLocaleString('pt');
-    document.getElementById('total-produtos').textContent = new Set(dados.map(d => d.cnp)).size.toLocaleString('pt');
-    document.getElementById('total-conf').textContent = new Set(dados.map(d => d.conferencia)).size;
-    const hoje = new Date();
-    const limite = new Date(); limite.setDate(hoje.getDate() + 180);
-    const val = new Set(dados.filter(d => d.validade && new Date(d.validade) <= limite).map(d => d.cnp)).size;
-    document.getElementById('total-validades').textContent = val;
-}
-
-function actualizarGraficoConf(dados) {
-    const c = {}; dados.forEach(d => { const k = `Conf ${d.conferencia}`; c[k] = (c[k]||0)+1; });
-    const labels = Object.keys(c).sort(), values = labels.map(l => c[l]);
-    if (charts.conf) charts.conf.destroy();
-    charts.conf = new Chart(document.getElementById('chart-conf'), {
-        type: 'bar', data: { labels, datasets: [{ data: values, backgroundColor: '#1565C0', borderRadius: 6 }] },
-        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-    });
-}
-
-function actualizarGraficoProdutos(dados) {
-    const c = {}; dados.forEach(d => { if (!d.produto) return; const n = d.produto.length > 35 ? d.produto.substring(0,35)+'…' : d.produto; c[n] = (c[n]||0)+1; });
-    const sorted = Object.entries(c).sort((a,b) => b[1]-a[1]).slice(0,10);
-    if (charts.produtos) charts.produtos.destroy();
-    charts.produtos = new Chart(document.getElementById('chart-produtos'), {
-        type: 'bar', data: { labels: sorted.map(s=>s[0]), datasets: [{ data: sorted.map(s=>s[1]), backgroundColor: '#42A5F5', borderRadius: 6 }] },
-        options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true } } }
-    });
-}
-
-function actualizarGraficoTempo(dados) {
-    const c = {}; dados.forEach(d => { if (!d.data_conferencia) return; const m = d.data_conferencia.substring(0,7); c[m] = (c[m]||0)+1; });
-    const labels = Object.keys(c).sort(), values = labels.map(l => c[l]);
-    if (charts.tempo) charts.tempo.destroy();
-    charts.tempo = new Chart(document.getElementById('chart-tempo'), {
-        type: 'line', data: { labels, datasets: [{ data: values, borderColor: '#1565C0', backgroundColor: 'rgba(21,101,192,0.08)', fill: true, tension: 0.4, pointRadius: 3 }] },
-        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-    });
-}
-
-// ── PRODUTOS ──────────────────────────────────────────────────────────────────
 async function carregarProdutos() {
-    document.getElementById('tabela-produtos').innerHTML = '<tr><td colspan="5" class="loading">A carregar...</td></tr>';
-    const conf = document.getElementById('filtro-conf-prod').value;
-    const cnp = document.getElementById('filtro-cnp-prod').value.trim();
-    const nome = document.getElementById('filtro-nome-prod').value.trim().toLowerCase();
-    let f = 'scans?select=cnp,produto,validade,conferencia&order=cnp.asc';
-    if (conf) f += `&conferencia=eq.${conf}`;
-    if (cnp) f += `&cnp=eq.${cnp}`;
-    const dados = await apiPaginated(f);
+    document.getElementById('tb-produtos').innerHTML = '<tr><td colspan="6" class="loading">A carregar...</td></tr>';
+    const conf = document.getElementById('pf-conf').value;
+    const cnp = document.getElementById('pf-cnp').value.trim();
+    const nome = document.getElementById('pf-nome').value.trim().toLowerCase();
+    const lote = document.getElementById('pf-lote').value.trim().toLowerCase();
+    let q = 'scans?select=cnp,produto,lote,validade,conferencia&order=cnp.asc';
+    if (conf) q += `&conferencia=eq.${conf}`;
+    if (cnp) q += `&cnp=eq.${cnp}`;
+    if (lote) q += `&lote=ilike.*${lote}*`;
+    const dados = await apiGet(q);
     const porCnp = {};
     dados.forEach(d => {
         if (nome && d.produto && !d.produto.toLowerCase().includes(nome)) return;
-        if (!porCnp[d.cnp]) porCnp[d.cnp] = { cnp: d.cnp, produto: d.produto, validade: d.validade, count: 0, confs: new Set() };
+        if (!porCnp[d.cnp]) porCnp[d.cnp] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0, confs:new Set() };
         porCnp[d.cnp].count++;
         porCnp[d.cnp].confs.add(d.conferencia);
     });
-    const lista = Object.values(porCnp).sort((a,b) => b.count-a.count);
-    document.getElementById('count-produtos').textContent = `${lista.length} produtos`;
-    const tbody = document.getElementById('tabela-produtos');
-    if (!lista.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty">Sem resultados</td></tr>'; return; }
-    tbody.innerHTML = lista.map(r => `<tr>
-        <td><b>${r.cnp}</b></td>
-        <td>${r.produto || '<span style="color:#a0aec0">—</span>'}</td>
-        <td>${r.validade || '—'}</td>
-        <td>${r.count.toLocaleString('pt')}</td>
-        <td>${[...r.confs].sort().map(c=>`Conf ${c}`).join(', ')}</td>
-    </tr>`).join('');
+    const lista = Object.values(porCnp).sort((a,b)=>b.count-a.count);
+    document.getElementById('cnt-prod').textContent = `${lista.length} produtos`;
+    const hoje = new Date();
+    document.getElementById('tb-produtos').innerHTML = lista.length ? lista.map(r => {
+        let valClass = '', valTxt = r.validade || '—';
+        if (r.validade) {
+            const dias = Math.round((new Date(r.validade)-hoje)/(1000*60*60*24));
+            if (dias < 0) valClass = 'color:#9b2c2c;font-weight:600';
+            else if (dias <= 90) valClass = 'color:#744210;font-weight:600';
+        }
+        return `<tr>
+            <td><b>${r.cnp}</b></td>
+            <td>${r.produto||'<span style="color:#a0aec0">—</span>'}</td>
+            <td>${r.lote||'—'}</td>
+            <td style="${valClass}">${valTxt}</td>
+            <td>${r.count.toLocaleString('pt')}</td>
+            <td>${[...r.confs].sort().map(c=>`Conf ${c}`).join(', ')}</td>
+        </tr>`;
+    }).join('') : '<tr><td colspan="6" class="empty">Sem resultados</td></tr>';
 }
 
-// ── VALIDADES ─────────────────────────────────────────────────────────────────
 async function carregarValidades() {
-    document.getElementById('tabela-validades').innerHTML = '<tr><td colspan="6" class="loading">A carregar...</td></tr>';
-    const dias = parseInt(document.getElementById('filtro-dias-val').value);
+    document.getElementById('tb-validades').innerHTML = '<tr><td colspan="7" class="loading">A carregar...</td></tr>';
+    const dias = parseInt(document.getElementById('vf-dias').value);
+    const cnp = document.getElementById('vf-cnp').value.trim();
     const hoje = new Date();
-    const limite = new Date(); limite.setDate(hoje.getDate() + (dias === 0 ? 0 : dias));
-    let f = 'scans?select=cnp,produto,validade&validade=not.is.null&order=validade.asc';
-    if (dias === 0) f += `&validade=lte.${hoje.toISOString().split('T')[0]}`;
-    else f += `&validade=lte.${limite.toISOString().split('T')[0]}`;
-    const dados = await apiPaginated(f);
+    let q = 'scans?select=cnp,produto,lote,validade&validade=not.is.null&order=validade.asc';
+    if (cnp) q += `&cnp=eq.${cnp}`;
+    if (dias === -1) q += `&validade=lte.${hoje.toISOString().split('T')[0]}`;
+    else if (dias !== 9999) { const lim = new Date(); lim.setDate(hoje.getDate()+dias); q += `&validade=lte.${lim.toISOString().split('T')[0]}`; }
+    const dados = await apiGet(q);
     const porCnp = {};
     dados.forEach(d => {
-        if (!porCnp[d.cnp]) porCnp[d.cnp] = { cnp: d.cnp, produto: d.produto, validade: d.validade, count: 0 };
+        if (!porCnp[d.cnp]) porCnp[d.cnp] = { cnp:d.cnp, produto:d.produto, lote:d.lote, validade:d.validade, count:0 };
         porCnp[d.cnp].count++;
     });
-    const lista = Object.values(porCnp).sort((a,b) => new Date(a.validade)-new Date(b.validade));
-    document.getElementById('count-validades').textContent = `${lista.length} produtos`;
-    const tbody = document.getElementById('tabela-validades');
-    if (!lista.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty">Sem resultados para os critérios seleccionados</td></tr>'; return; }
-    tbody.innerHTML = lista.map(r => {
+    const lista = Object.values(porCnp).sort((a,b)=>new Date(a.validade)-new Date(b.validade));
+    document.getElementById('cnt-val').textContent = `${lista.length} produtos`;
+    document.getElementById('tb-validades').innerHTML = lista.length ? lista.map(r => {
         const v = new Date(r.validade), diasR = Math.round((v-hoje)/(1000*60*60*24));
         let badge;
         if (diasR < 0) badge = '<span class="badge expirado">Expirado</span>';
@@ -651,50 +625,68 @@ async function carregarValidades() {
         else badge = '<span class="badge ok">OK</span>';
         return `<tr>
             <td><b>${r.cnp}</b></td>
-            <td>${r.produto || '—'}</td>
+            <td>${r.produto||'—'}</td>
+            <td>${r.lote||'—'}</td>
             <td>${r.validade}</td>
-            <td>${diasR < 0 ? 'Expirado' : diasR+' dias'}</td>
+            <td>${diasR < 0 ? '<span style="color:#9b2c2c">Expirado</span>' : diasR+' dias'}</td>
             <td>${badge}</td>
             <td>${r.count.toLocaleString('pt')}</td>
         </tr>`;
-    }).join('');
+    }).join('') : '<tr><td colspan="7" class="empty">Sem resultados</td></tr>';
 }
 
-// ── WEBSERVICES ───────────────────────────────────────────────────────────────
-async function verificarWebservices() {
-    setSemaforo('supabase', 'verificando', 'A verificar...');
-    setSemaforo('auth', 'verificando', 'A verificar...');
-    setSemaforo('logisticswms', 'verificando', 'A verificar...');
-
-    // Supabase API
+async function verificarWS() {
+    setWS('api','cinza','A verificar...');
+    setWS('auth','cinza','A verificar...');
+    setWS('wms','cinza','Acesso via app / VPN');
+    // API
     try {
         const t0 = Date.now();
-        const r = await fetch(`${SUPABASE_URL}/rest/v1/scans?limit=1`, { headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` } });
-        if (r.ok) setSemaforo('supabase', 'ok', `Online · ${Date.now()-t0}ms`);
-        else setSemaforo('supabase', 'erro', `Erro ${r.status}`);
-    } catch(e) { setSemaforo('supabase', 'erro', 'Sem resposta'); }
-
+        const r = await fetch(`${SUPABASE_URL}/rest/v1/scans?limit=1`, { headers:{'apikey':ANON_KEY,'Authorization':`Bearer ${token}`} });
+        if (r.ok) setWS('api','verde',`Online · ${Date.now()-t0}ms`);
+        else setWS('api','vermelho',`Erro ${r.status}`);
+    } catch(e) { setWS('api','vermelho','Sem resposta'); }
     // Auth
     try {
         const t0 = Date.now();
-        const r = await fetch(`${SUPABASE_URL}/auth/v1/user`, { headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` } });
-        if (r.ok) setSemaforo('auth', 'ok', `Online · ${Date.now()-t0}ms`);
-        else setSemaforo('auth', 'erro', `Erro ${r.status}`);
-    } catch(e) { setSemaforo('auth', 'erro', 'Sem resposta'); }
-
-    // LogisticsWMS — não acessível directamente do browser (CORS)
-    setSemaforo('logisticswms', 'cinza', 'Acesso via app Android / VPN');
+        const r = await fetch(`${SUPABASE_URL}/auth/v1/user`, { headers:{'apikey':ANON_KEY,'Authorization':`Bearer ${token}`} });
+        if (r.ok) setWS('auth','verde',`Online · ${Date.now()-t0}ms`);
+        else setWS('auth','vermelho',`Erro ${r.status}`);
+    } catch(e) { setWS('auth','vermelho','Sem resposta'); }
 }
 
-function setSemaforo(id, estado, msg) {
-    const dot = document.getElementById('dot-' + id);
-    const status = document.getElementById('status-' + id);
-    dot.className = 'semaforo-dot ' + (estado === 'ok' ? 'verde' : estado === 'erro' ? 'vermelho' : 'cinza');
-    status.className = 'semaforo-status ' + (estado === 'ok' ? 'ok' : estado === 'erro' ? 'erro' : 'verificando');
-    status.textContent = msg;
+function setWS(id, cor, msg) {
+    const dot = document.getElementById('dot-'+id);
+    dot.className = 'ws-dot ' + cor;
+    const st = document.getElementById('st-'+id);
+    st.className = 'ws-status ' + (cor==='verde'?'ok':cor==='vermelho'?'erro':'aviso');
+    st.textContent = msg;
 }
 
-document.getElementById('password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+async function carregarRecepoes() {
+    const div = document.getElementById('lista-recepoes');
+    // Mostrar últimas receções agrupadas por nome_ficheiro
+    const dados = await apiGet('scans?select=nome_ficheiro,conferencia,data_conferencia&order=data_conferencia.desc');
+    const porFicheiro = {};
+    dados.forEach(d => {
+        if (!d.nome_ficheiro || porFicheiro[d.nome_ficheiro]) return;
+        porFicheiro[d.nome_ficheiro] = { ficheiro: d.nome_ficheiro, conferencia: d.conferencia, data: d.data_conferencia };
+    });
+    const lista = Object.values(porFicheiro).slice(0, 20);
+    document.getElementById('cnt-rec').textContent = `${Object.keys(porFicheiro).length} receções`;
+    div.innerHTML = lista.map(r => `
+        <div class="rec-row">
+            <div class="rec-dot verde"></div>
+            <div class="rec-codigo">${r.ficheiro.replace('.txt','')}</div>
+            <div class="rec-data">📅 ${r.data || '—'}</div>
+            <span class="rec-tipo">Conf ${r.conferencia}</span>
+            <div class="rec-empresa" style="flex:1"></div>
+            <button class="rec-btn">👁 Ver</button>
+        </div>
+    `).join('');
+}
+
+document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
 </script>
 </body>
 </html>
